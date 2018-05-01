@@ -1,0 +1,53 @@
+<% include _layouts/header %>
+
+<div class="row products">
+
+	<% products.forEach(function(p){ %>
+		
+	<% }); %>
+</div>
+
+
+        <div class="row products">
+            <% for (var i = 0; i < products.length; i++) { %>
+                <div class="col-12 col-md-4">
+					<a class="pa" href="/products/<%= products[i].category %>/<%= products[i].slug %>">
+						<img class="pimage" src="/product_images/<%= products[i].id%>/<%= products[i].image %>" alt="">
+					</a>
+
+					<h6><%= products[i].title %></h6>
+					<h4>$<%= parseFloat(products[i].price).toFixed(2) %></h4>
+					<a class="vd" href="/products/<%= products[i].category %>/<%= products[i].slug %>"></a>
+				</div>
+            <% } %>
+        </div>
+            <% if (pagination_pages > 0) { %>
+                <ul class="pagination">
+                    <% if (current == 1) { %>
+                        <li class="page-item disabled"><a>First</a></li>&nbsp;
+                    <% } else { %>
+                        <li class="page-item"><a href="/products/pagination/1">First</a></li>&nbsp;
+                    <% } %>
+                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if (i !== 1) { %>
+                        <li class="page-item disabled"><a>...</a></li>&nbsp;
+                    <% } %>
+                    <% for (; i <= (Number(current) + 4) && i <= pagination_pages; i++) { %>
+                        <% if (i == current) { %>
+                            <li class="page-item active"><a><%= i %></a></li>&nbsp;
+                        <% } else { %>
+                            <li class="page-item"><a href="/products/pagination/<%= i %>"><%= i %></a></li>&nbsp;
+                        <% } %>
+                        <% if (i == Number(current) + 4 && i < pagination_pages) { %>
+                            <li class="page-item disabled"><a>...</a></li>&nbsp;
+                        <% } %>
+                    <% } %>
+                    <% if (current == pagination_pages) { %>
+                        <li class="page-item disabled"><a>Last</a></li>&nbsp;
+                    <% } else { %>
+                        <li class="page-item"><a href="/products/pagination/<%= pagination_pages %>">Last</a></li>&nbsp;
+                    <% } %>
+                </ul>
+            <% } %>
+
+<% include _layouts/footer %>
